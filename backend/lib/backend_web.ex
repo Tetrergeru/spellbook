@@ -23,7 +23,9 @@ defmodule BackendWeb do
 
       import Plug.Conn
       import BackendWeb.Gettext
+
       alias BackendWeb.Router.Helpers, as: Routes
+      alias Plug.Conn
     end
   end
 

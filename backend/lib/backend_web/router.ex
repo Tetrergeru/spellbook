@@ -5,8 +5,10 @@ defmodule BackendWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", BackendWeb do
-    pipe_through :api
+  scope "/api/v1", BackendWeb.V1 do
+    pipe_through [:api]
+
+    resources "/foo", FooController, only: [:index]
   end
 
   # Enables LiveDashboard only for development
