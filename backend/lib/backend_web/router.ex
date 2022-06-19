@@ -8,7 +8,9 @@ defmodule BackendWeb.Router do
   scope "/api/v1", BackendWeb.V1 do
     pipe_through [:api]
 
-    resources "/foo", FooController, only: [:index]
+    post "/spells", SpellsController, :create
+
+    resources "/spells", SpellsController, only: [:index]
   end
 
   # Enables LiveDashboard only for development

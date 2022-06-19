@@ -17,4 +17,4 @@ COPY ./ ./mix.lock /app/
 
 EXPOSE 4000/tcp
 
-CMD mix phx.server
+CMD mix ecto.migrate && mix phx.server
