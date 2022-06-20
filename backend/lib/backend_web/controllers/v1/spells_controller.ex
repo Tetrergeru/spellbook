@@ -6,7 +6,7 @@ defmodule BackendWeb.V1.SpellsController do
   action_fallback(BackendWeb.FallbackController)
 
   def index(conn, params) do
-    spells = Spells.list_spells()
+    spells = Spells.list_spells(params)
     render(conn, "index.json", %{spells: spells})
   end
 

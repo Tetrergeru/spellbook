@@ -1,19 +1,16 @@
-FROM elixir:1.13.2-alpine
+FROM renderedtext/elixir-dev:1.13.3
 
 ENV MIX_ENV dev
 
-RUN mkdir /app
-WORKDIR /app
-
 RUN mix local.rebar
 
-COPY ./mix.exs ./mix.lock /app/
+COPY ./mix.exs ./mix.lock ./
 
 RUN mix local.hex --force
 RUN mix deps.get --force
 RUN mix deps.compile
 
-COPY ./ ./mix.lock /app/
+COPY ./ ./mix.lock ./
 
 EXPOSE 4000/tcp
 

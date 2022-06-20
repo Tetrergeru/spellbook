@@ -43,7 +43,11 @@ defmodule Backend.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:email_ecto_type, "~> 0.1"},
+      {:guardian, "~> 2.0"},
+      {:argon2_elixir, "~> 3.0"},
+      {:bodyguard, "~> 2.4"}
     ]
   end
 

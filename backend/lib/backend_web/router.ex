@@ -2,15 +2,33 @@ defmodule BackendWeb.Router do
   use BackendWeb, :router
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
+  end
+
+  pipeline :user_auth do
+    plug(Backend.Users.Guardian.Pipeline)
+  end
+
+  pipeline :ensure_auth do
+    plug(Guardian.Plug.EnsureAuthenticated)
+    plug(BackendWeb.CurrentUserPlug)
   end
 
   scope "/api/v1", BackendWeb.V1 do
-    pipe_through [:api]
+    pipe_through([:api])
 
-    post "/spells", SpellsController, :create
+    post("/users", UsersController, :create)
+    resources("/users", UsersController, only: [:index])
 
-    resources "/spells", SpellsController, only: [:index]
+    post("/login", LoginController, :create)
+
+    resources("/spells", SpellsController, only: [:index])
+
+    pipe_through([:user_auth, :ensure_auth])
+
+    post("/spells", SpellsController, :create)
+
+    resources("/private", PrivateController, only: [:index])
   end
 
   # Enables LiveDashboard only for development
@@ -24,9 +42,9 @@ defmodule BackendWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through [:fetch_session, :protect_from_forgery]
+      pipe_through([:fetch_session, :protect_from_forgery])
 
-      live_dashboard "/dashboard", metrics: BackendWeb.Telemetry
+      live_dashboard("/dashboard", metrics: BackendWeb.Telemetry)
     end
   end
 
@@ -36,9 +54,9 @@ defmodule BackendWeb.Router do
   # node running the Phoenix server.
   if Mix.env() == :dev do
     scope "/dev" do
-      pipe_through [:fetch_session, :protect_from_forgery]
+      pipe_through([:fetch_session, :protect_from_forgery])
 
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
+      forward("/mailbox", Plug.Swoosh.MailboxPreview)
     end
   end
 end

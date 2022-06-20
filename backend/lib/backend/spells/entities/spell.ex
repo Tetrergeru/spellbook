@@ -3,9 +3,6 @@ defmodule Backend.Spells.Entities.Spell do
 
   import Ecto.Changeset
 
-  alias Backend.Spells.Entities.SpellEntity
-  alias Backend.Repo
-
   @required [
     :name,
     :level,

@@ -10,6 +10,10 @@ import Config
 config :backend,
   ecto_repos: [Backend.Repo]
 
+config :backend, Backend.Users.Services.GuardianService,
+  issuer: "backend",
+  secret_key: "l+cUMmjd3lLy8vYSDPp+Q/+ozP1N9wQNJ4cGRjzY3Yl2ppsOdgtuy2pmziTqBMbv"
+
 # Configures the endpoint
 config :backend, BackendWeb.Endpoint,
   url: [host: "localhost"],
