@@ -1,6 +1,6 @@
 FROM renderedtext/elixir-dev:1.13.3
 
-ENV MIX_ENV dev
+ENV MIX_ENV test
 
 RUN mix local.rebar
 
@@ -14,4 +14,5 @@ COPY ./ ./mix.lock ./
 
 EXPOSE 4000/tcp
 
-CMD mix ecto.migrate && mix phx.server
+CMD mix test
+#CMD phx.server

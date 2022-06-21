@@ -5,11 +5,13 @@ defmodule BackendWeb.ErrorViewTest do
   import Phoenix.View
 
   test "renders 404.json" do
-    assert render(BackendWeb.ErrorView, "404.json", []) == %{errors: %{detail: "Not Found"}}
+    assert render(BackendWeb.ErrorView, "404.json", []) == %{errors: ["Not found"]}
   end
 
   test "renders 500.json" do
-    assert render(BackendWeb.ErrorView, "500.json", []) ==
-             %{errors: %{detail: "Internal Server Error"}}
+    assert render(BackendWeb.ErrorView, "500.json", []) == %{
+             errors: ["Internal Server Error"],
+             template: "500.json"
+           }
   end
 end
