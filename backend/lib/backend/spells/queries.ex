@@ -40,3 +40,12 @@ defmodule Backend.Spells.Queries.GetSpell do
     Repo.find(Spell, id)
   end
 end
+
+defmodule Backend.Spells.Queries.GetSpellName do
+  alias Backend.Spells.Entities.Spell
+  alias Backend.Repo
+
+  def process(name) do
+    Repo.find_by(Spell, [name: name])
+  end
+end

@@ -10,6 +10,12 @@ defmodule Backend.Spells.Commands.Tests do
     assert {:ok, %Spell{id: ^spell_id}} = Spells.get_spell(spell_id)
   end
 
+  test "get_spell_name test" do
+    spell = insert(:spell)
+    spell_id = spell.id
+    assert {:ok, %Spell{id: ^spell_id}} = Spells.get_spell_name(spell.name)
+  end
+
   test "list_spells test" do
     spells = [insert(:spell), insert(:spell), insert(:spell)]
 
@@ -33,7 +39,7 @@ defmodule Backend.Spells.Commands.Tests do
     assert {:error, :not_found} = Spells.get_spell(spell_id)
   end
 
-  test "update_user test" do
+  test "update_spell test" do
     spell = insert(:spell)
 
     spell_id = spell.id

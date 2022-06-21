@@ -4,14 +4,23 @@ defmodule Backend.SpellBooks.Queries.ListSpellBooks do
   alias Backend.SpellBooks.Entities.SpellBook
   alias Backend.Repo
 
-  def process(params) do
+  def process(%{"current_user" => current_user} = params) do
     result =
       SpellBook
-      |> by_user(params["current_user"].id)
+      |> by_user(current_user.id)
       |> preload()
       |> Repo.paginate(params)
 
-    Enum.map(result, fn x -> select_spellbook(x) end)
+    %{result | entries: Enum.map(result.entries, fn x -> select_spellbook(x) end)}
+  end
+
+  def process(params) do
+    result =
+      SpellBook
+      |> preload()
+      |> Repo.paginate(params)
+
+    %{result | entries: Enum.map(result.entries, fn x -> select_spellbook(x) end)}
   end
 
   defp by_user(query, user_id) do
@@ -48,11 +57,19 @@ defmodule Backend.SpellBooks.Queries.ListSpellBooks do
   end
 end
 
-defmodule Backend.SpellBooks.Queries.FindSpellBook do
+defmodule Backend.SpellBooks.Queries.GetSpellBook do
   alias Backend.SpellBooks.Entities.SpellBook
   alias Backend.Repo
 
   def process(id) do
-    Repo.find(SpellBook, id)
+    res =
+      SpellBook
+      |> Repo.get(id)
+      |> Repo.preload([:spells])
+
+    case res do
+      %{} -> {:ok, res}
+      _ -> {:error, :not_found}
+    end
   end
 end

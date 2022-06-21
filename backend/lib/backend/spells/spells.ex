@@ -7,7 +7,8 @@ defmodule Backend.Spells do
 
   alias Backend.Spells.Queries.{
     ListSpells,
-    GetSpell
+    GetSpell,
+    GetSpellName
   }
 
   defdelegate create_spell(attrs), to: CreateSpell, as: :process
@@ -16,4 +17,5 @@ defmodule Backend.Spells do
 
   defdelegate list_spells(params \\ %{}), to: ListSpells, as: :process
   defdelegate get_spell(id), to: GetSpell, as: :process
+  defdelegate get_spell_name(name), to: GetSpellName, as: :process
 end

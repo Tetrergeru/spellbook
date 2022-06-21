@@ -32,7 +32,7 @@ defmodule Backend.SpellBooks.Entities.SpellBook do
     timestamps()
   end
 
-  def create_changeset(%__MODULE__{} = spellbook, attrs) do
+  def create_changeset(%__MODULE__{} = spellbook, %{"spells" => spells} = attrs) do
     spellbook
     |> Repo.preload(:spells)
     |> cast(attrs, @required ++ @optional)
@@ -40,6 +40,15 @@ defmodule Backend.SpellBooks.Entities.SpellBook do
     |> validate_number(:character_level, less_than_or_equal_to: 20, greater_than_or_equal_to: 1)
     |> assoc_constraint(:user)
     # Set the association
-    |> put_assoc(:spells, attrs["spells"])
+    |> put_assoc(:spells, spells)
+  end
+
+  def create_changeset(%__MODULE__{} = spellbook, attrs) do
+    spellbook
+    |> Repo.preload(:spells)
+    |> cast(attrs, @required ++ @optional)
+    |> validate_required(@required)
+    |> validate_number(:character_level, less_than_or_equal_to: 20, greater_than_or_equal_to: 1)
+    |> assoc_constraint(:user)
   end
 end

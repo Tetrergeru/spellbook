@@ -3,6 +3,7 @@ defmodule Backend.Factories do
 
   use Backend.Factories.{
     UserFactory,
-    SpellFactory
+    SpellFactory,
+    SpellBookFactory
   }
 end
