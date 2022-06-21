@@ -2,7 +2,6 @@ defmodule Backend.SpellBooks.Queries.ListSpellBooks do
   import Ecto.Query, only: [from: 2]
 
   alias Backend.SpellBooks.Entities.SpellBook
-  alias Backend.Users.Entities.User
   alias Backend.Repo
 
   def process(params) do

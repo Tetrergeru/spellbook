@@ -26,7 +26,7 @@ defmodule Backend.SpellBooks.Entities.SpellBook do
       join_through: "spellbook_spells",
       on_replace: :delete,
       unique: true,
-      join_keys: [spellbook_id: :id, spell_id: :id],
+      join_keys: [spellbook_id: :id, spell_id: :id]
     )
 
     timestamps()

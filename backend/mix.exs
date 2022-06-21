@@ -48,7 +48,9 @@ defmodule Backend.MixProject do
       {:guardian, "~> 2.0"},
       {:argon2_elixir, "~> 3.0"},
       {:bodyguard, "~> 2.4"},
-      {:scrivener_ecto, "~> 2.0"}
+      {:scrivener_ecto, "~> 2.0"},
+      {:ex_machina, "~> 2.7.0", only: [:test]},
+      {:faker, "~> 0.13", only: [:test]}
     ]
   end
 
