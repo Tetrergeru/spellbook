@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+}
+
+.container {
+    border: 2px black solid;
+    border-radius: 5px;
+    margin: 20px;
+    padding: 20px;
+}
+
+.any_button {
+    width: 100px;
+    height: 30px;
+    border: 1px black solid;
+    margin-bottom: 10px;
+}
+
+.any_text {
+    width: 200px;
+    height: 200px;
+    border: 1px black solid;
+}
+
+.any_field {
+    border: 1px black solid;
+    margin-bottom: 10px;
+}
+
+.users {
+    display: flex;
+}
+
+.users_item {
+    margin: 10px;
+    display: block;
+}

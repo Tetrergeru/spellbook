@@ -25,6 +25,15 @@ services:
       - 4000:4000
     depends_on:
       - postgres
+  frontend:
+    build:
+      context: "./frontend"
+    container_name: frontend
+    hostname: frontend
+    ports:
+      - 8080:8080
+    depends_on:
+      - backend
 volumes:
   db-data:
     driver: local

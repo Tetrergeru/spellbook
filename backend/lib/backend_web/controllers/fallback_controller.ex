@@ -11,6 +11,13 @@ defmodule BackendWeb.FallbackController do
     |> render("404.json", %{})
   end
 
+  def call(%Conn{} = conn, {:error, :unauthorized}) do
+    conn
+    |> put_status(:unauthorized)
+    |> put_view(ErrorView)
+    |> render("401.json", %{})
+  end
+
   def call(%Conn{} = conn, {:error, "invalid password"}) do
     conn
     |> put_status(:unauthorized)
