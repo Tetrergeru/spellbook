@@ -2,11 +2,14 @@ document.addEventListener("DOMContentLoaded", main)
 
 function main() {
     init_spells()
+
     init_users()
-    init_private()
     init_register()
     init_login()
     init_logout()
+
+    init_spellbooks()
+    init_create_spellbook()
 
     current_user_callback()
 }
@@ -30,19 +33,6 @@ function init_users() {
         request('get', '/api/users')
             .then((res) => res.json())
             .then((json) => text.textContent = JSON.stringify(json, null, 2));
-    })
-}
-
-function init_private() {
-    const button = document.querySelector(".private_button")
-    const text = document.querySelector(".private_text")
-
-    button.addEventListener('mouseup', () => {
-        console.log('query')
-        request('get', '/api/private')
-            .then((res) => res.blob())
-            .then((res) => res.text())
-            .then((json) => text.textContent = json);
     })
 }
 
@@ -118,6 +108,40 @@ function init_logout() {
             nickname.value = '<none>'
         }
     }
+}
+
+function init_spellbooks() {
+    const button = document.querySelector(".spellbooks_button")
+    const text = document.querySelector(".spellbooks_text")
+
+    button.addEventListener('mouseup', () => {
+        request('get', '/api/spellbooks')
+            .then((res) => res.blob())
+            .then((res) => res.text())
+            .then((json) => text.textContent = json);
+    })
+}
+
+function init_create_spellbook() {
+    const button = document.querySelector(".create_spellbooks_button")
+
+    const character_name = document.querySelector(".character_name_field")
+    const character_level = document.querySelector(".character_level_field")
+    const spell_ids = document.querySelector(".spell_ids_field")
+
+    const result = document.querySelector(".spellbooks_result_field")
+
+    button.addEventListener('mouseup', () => {
+        let body = {
+            character_name: character_name.value,
+            character_level: +character_level.value,
+            spells: spell_ids.value.split(' ').map(it => +it),
+        }
+        request('POST', '/api/spellbooks', JSON.stringify(body))
+            .then((res) => res.blob())
+            .then((res) => res.text())
+            .then((json) => result.textContent = json);
+    })
 }
 
 function request(verb, path, body) {

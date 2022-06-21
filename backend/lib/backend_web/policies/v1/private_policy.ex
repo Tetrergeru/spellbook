@@ -3,7 +3,7 @@ defmodule BackendWeb.Policies.V1.PrivatePolicy do
 
   alias Backend.Users.Entities.User
 
-  def authorize(action, %User{nickname: nickname}, _)
+  def authorize(action, %User{}, _)
       when action in [:show, :update],
       do: :ok
 

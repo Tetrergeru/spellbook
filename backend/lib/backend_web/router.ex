@@ -28,7 +28,8 @@ defmodule BackendWeb.Router do
 
     post("/spells", SpellsController, :create)
 
-    resources("/private", PrivateController, only: [:index])
+    post("/spellbooks", SpellBooksController, :create)
+    resources("/spellbooks", SpellBooksController, only: [:index])
   end
 
   # Enables LiveDashboard only for development
