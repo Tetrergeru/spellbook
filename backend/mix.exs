@@ -47,7 +47,8 @@ defmodule Backend.MixProject do
       {:email_ecto_type, "~> 0.1"},
       {:guardian, "~> 2.0"},
       {:argon2_elixir, "~> 3.0"},
-      {:bodyguard, "~> 2.4"}
+      {:bodyguard, "~> 2.4"},
+      {:scrivener_ecto, "~> 2.0"}
     ]
   end
 

@@ -2,8 +2,8 @@ defmodule Backend.Users.Queries.ListUsers do
   alias Backend.Users.Entities.User
   alias Backend.Repo
 
-  def process(_params) do
-    Repo.all(User)
+  def process(params) do
+    Repo.paginate(User, params)
   end
 end
 

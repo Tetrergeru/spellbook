@@ -9,19 +9,19 @@ defmodule Backend.SpellBooks.Queries.ListSpellBooks do
     result =
       SpellBook
       |> by_user(params["current_user"].id)
-      |> select_fields()
-      # |> Repo.preload(:spells)
-      |> Repo.all()
+      |> preload()
+      |> Repo.paginate(params)
 
     Enum.map(result, fn x -> select_spellbook(x) end)
   end
 
   defp by_user(query, user_id) do
-    from i in query,
+    from(i in query,
       where: i.user_id == ^user_id
+    )
   end
 
-  defp select_fields(query) do
+  defp preload(query) do
     from(i in query,
       preload: [:spells]
     )

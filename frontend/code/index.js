@@ -19,7 +19,11 @@ function init_spells() {
     const text = document.querySelector(".spells_text")
 
     button.addEventListener('mouseup', () => {
-        request('get', '/api/spells')
+        const page = 1
+        const page_size = 2
+        const args = `?page=${page}&page_size=${page_size}`
+
+        request('get', `/api/spells${args}`)
             .then((res) => res.json())
             .then((json) => text.textContent = JSON.stringify(json, null, 2));
     })
@@ -30,7 +34,11 @@ function init_users() {
     const text = document.querySelector(".users_text")
 
     button.addEventListener('mouseup', () => {
-        request('get', '/api/users')
+        const page = 1
+        const page_size = 2
+        const args = `?page=${page}&page_size=${page_size}`
+
+        request('get', `/api/users${args}`)
             .then((res) => res.json())
             .then((json) => text.textContent = JSON.stringify(json, null, 2));
     })
@@ -50,7 +58,7 @@ function init_register() {
             email: email.value,
             password: password.value,
         }
-        request('POST', '/api/users', JSON.stringify(body))
+        request('POST', '/api/users')
             .then((res) => res.json())
             .then((json) => {
                 result.textContent = JSON.stringify(json, null, 2);
@@ -115,7 +123,11 @@ function init_spellbooks() {
     const text = document.querySelector(".spellbooks_text")
 
     button.addEventListener('mouseup', () => {
-        request('get', '/api/spellbooks')
+        const page = 1
+        const page_size = 2
+        const args = `?page=${page}&page_size=${page_size}`
+
+        request('get', `/api/spellbooks${args}`)
             .then((res) => res.blob())
             .then((res) => res.text())
             .then((json) => text.textContent = json);

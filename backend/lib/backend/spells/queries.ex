@@ -8,7 +8,7 @@ defmodule Backend.Spells.Queries.ListSpells do
     Spell
     |> with_level(params)
     |> select_fields()
-    |> Repo.all()
+    |> Repo.paginate(params)
   end
 
   defp with_level(query, %{level: nil}), do: query

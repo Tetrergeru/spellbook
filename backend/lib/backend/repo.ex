@@ -3,6 +3,8 @@ defmodule Backend.Repo do
     otp_app: :backend,
     adapter: Ecto.Adapters.Postgres
 
+  use Scrivener, page_size: 10 
+
   def find(query, id) do
     case __MODULE__.get(query, id) do
       %_{} = schema ->
