@@ -12,7 +12,7 @@ defmodule BackendWeb.V1.SpellBooksController do
   end
 
   def create(conn, attrs) do
-    spells = Enum.map(attrs["spells"], fn id -> Spells.find_spell(id) end)
+    spells = Enum.map(attrs["spells"], fn id -> Spells.get_spell(id) end)
 
     if not Enum.all?(spells, fn x -> is_ok(x) end) do
       {:error, :not_found}

@@ -32,7 +32,7 @@ defmodule Backend.Spells.Queries.ListSpells do
   end
 end
 
-defmodule Backend.Spells.Queries.FindSpell do
+defmodule Backend.Spells.Queries.GetSpell do
   alias Backend.Spells.Entities.Spell
   alias Backend.Repo
 

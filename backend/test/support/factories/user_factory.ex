@@ -6,7 +6,7 @@ defmodule Backend.Factories.UserFactory do
 
       def user_factory(attrs) do
         password = Map.get(attrs, :password, "#{Lorem.sentence(8..16)}1")
-        nickname = Map.get(attrs, :mickname, "#{Person.first_name()}_#{Person.last_name()}")
+        nickname = Map.get(attrs, :nickname, "#{Person.first_name()}_#{Person.last_name()}")
         email = Map.get(attrs, :email, Internet.email())
 
         %Ecto.Changeset{valid?: true, changes: changes} = User.create_changeset(%User{}, %{

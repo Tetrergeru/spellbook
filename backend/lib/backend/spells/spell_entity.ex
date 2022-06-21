@@ -41,12 +41,11 @@ defmodule Backend.Spells.Entities.Spell do
   end
 
   def create_changeset(%__MODULE__{} = item, attrs) do
-    IO.inspect(attrs)
-
     item
     |> cast(attrs, @required ++ @optional)
     |> validate_required(@required)
     |> validate_number(:level, greater_than_or_equal_to: 0, less_than_or_equal_to: 9)
+    |> validate_number(:material_component_price, greater_than_or_equal_to: 0)
     |> unique_constraint(:name)
   end
 end
