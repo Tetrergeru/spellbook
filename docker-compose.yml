@@ -11,22 +11,28 @@ services:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     volumes:
       - db-data:/var/lib/postgresql/data
-  backend:
+  tests:
     build:
       context: "./backend"
-      args:
-        - MIX_ENV=test
+      dockerfile: "tests.Dockerfile"
     environment:
-      POSTGRES_USER: $POSTGRES_USER
-      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-      POSTGRES_HOST: postgres
-      POSTGRES_DB: $POSTGRES_DB
       TEST_POSTGRES_USER: $TEST_POSTGRES_USER
       TEST_POSTGRES_PASSWORD: $TEST_POSTGRES_PASSWORD
       TEST_POSTGRES_HOST: postgres
       TEST_POSTGRES_DB: $TEST_POSTGRES_DB
       SECRET_KEY: $SECRET_KEY
-      SECRET_KEY_BASE: $SECRET_KEY_BASE
+    container_name: backend-tests
+    depends_on:
+      - postgres
+  backend:
+    build:
+      context: "./backend"
+    environment:
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: $POSTGRES_DB
+      SECRET_KEY: $SECRET_KEY
     container_name: backend
     hostname: backend
     ports:
