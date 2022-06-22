@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", main)
 
 function main() {
     init_spells()
+    init_add_spell()
 
     init_users()
     init_register()
@@ -20,12 +21,37 @@ function init_spells() {
 
     button.addEventListener('mouseup', () => {
         const page = 1
-        const page_size = 2
+        const page_size = 20
         const args = `?page=${page}&page_size=${page_size}`
 
         request('get', `/api/spells${args}`)
             .then((res) => res.json())
             .then((json) => text.textContent = JSON.stringify(json, null, 2));
+    })
+}
+
+function init_add_spell() {
+    const button = document.querySelector(".add_spell_button")
+
+    const name = document.querySelector(".spell_name_field")
+    const description = document.querySelector(".spell_description_field")
+    const level = document.querySelector(".spell_level_field")
+    const school = document.querySelector(".spell_school_field")
+
+    const result = document.querySelector(".spell_result_field")
+
+    button.addEventListener('mouseup', () => {
+        let body = {
+            name: name.value,
+            description: description.value,
+            level: +level.value,
+            school: school.value,
+        }
+        request('POST', '/api/spells', JSON.stringify(body))
+            .then((res) => res.json())
+            .then((json) => {
+                result.textContent = JSON.stringify(json, null, 2);
+            });
     })
 }
 
@@ -58,7 +84,7 @@ function init_register() {
             email: email.value,
             password: password.value,
         }
-        request('POST', '/api/users')
+        request('POST', '/api/users', JSON.stringify(body))
             .then((res) => res.json())
             .then((json) => {
                 result.textContent = JSON.stringify(json, null, 2);

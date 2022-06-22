@@ -27,6 +27,10 @@ body {
     margin-bottom: 10px;
 }
 
+.spells {
+    display: flex;
+}
+
 .users {
     display: flex;
 }
