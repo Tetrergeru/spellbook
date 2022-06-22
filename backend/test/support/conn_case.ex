@@ -17,22 +17,39 @@ defmodule BackendWeb.ConnCase do
 
   use ExUnit.CaseTemplate
 
+  alias Backend.Repo
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
       import BackendWeb.ConnCase
+      import Backend.DataCase
+      import Backend.Factories
+
+      alias Backend.Users.{
+        Entities.User,
+        Services.GuardianService
+      }
 
       alias BackendWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
       @endpoint BackendWeb.Endpoint
+
+      def as_user(conn, %User{} = user) do
+        {:ok, token, _} = GuardianService.encode_and_sign(user, %{}, token_type: :access)
+
+        Plug.Conn.put_req_header(conn, "authorization", "bearer: " <> token)
+      end
     end
   end
 
   setup tags do
-    Backend.DataCase.setup_sandbox(tags)
+    pid = Sandbox.start_owner!(Repo, shared: not tags[:async])
+    on_exit(fn -> Sandbox.stop_owner(pid) end)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end
