@@ -20,7 +20,7 @@ defmodule BackendWeb.V1.SpellBooksView do
     }
   end
 
-  def render("create.json", %{ok: true}) do
+  def render("create.json", %{}) do
     %{ok: true}
   end
 end
